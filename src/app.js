@@ -59,5 +59,16 @@ app.listen(process.env.PORT || 3002, () => {
 app.get("/health", (req, res) => {
   res.json("Successful deployment");
 });
-
+app.get("/db", async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query("SELECT * FROM empleados");
+    const results = { results: result ? result.rows : null };
+    res.render("pages/db", results);
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+});
 module.exports = app;
