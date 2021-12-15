@@ -56,7 +56,7 @@ app.listen(process.env.PORT || 3002, () => {
   console.log(`Server listening`);
 });
 
-app.get("/health", (req, res) => {
+app.get("/", (req, res) => {
   res.json("Successful deployment");
 });
 
