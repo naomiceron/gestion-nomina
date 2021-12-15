@@ -37,7 +37,7 @@ const addSolicitudN = (request, response) => {
 
 //PUNTO 3 RECIBIR LOS DATOS DE LA SOLICITUD NOMINA
 const getNomina = (request, response) => {
-  pool.query("SELECT N.idNomina, S.fechaPago, N.horasExtra, N.salarioBase, N.sueldoTotal, S.salarioPagar FROM nomina AS N LEFT JOIN solicitudnom AS S ON N.idNomina = S.idNomina", (error, results) => {
+  pool.query("SELECT N.idNomina, S.fechaPago, N.horasExtra, N.salarioBase, N.sueldoTotal, S.salarioPagar, S.idsolicitudn FROM nomina AS N LEFT JOIN solicitudnom AS S ON N.idNomina = S.idNomina", (error, results) => {
     if (error) {
       throw error;
     }
