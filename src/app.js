@@ -59,4 +59,5 @@ app.listen(process.env.PORT || 3002, () => {
 app.get("/health", (req, res) => {
   res.json("Successful deployment");
 });
+
 module.exports = app;
