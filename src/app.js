@@ -31,7 +31,7 @@ const addRevision = (request, response) => {
   const { fechaRevision, estadoRevision } = request.body;
 
   pool.query(
-    "INSERT INTO SOLICITUDNOM (fechaRevision, estadoRevision) VALUES (2021-12-01, Aprobado)",
+    "INSERT INTO SOLICITUDNOM (fechaRevision, estadoRevision) VALUES ($1, $2)",
     [fechaRevision, estadoRevision],
     (error) => {
       if (error) {
