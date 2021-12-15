@@ -17,8 +17,27 @@ app.use(
 app.use(morgan("dev")); //?
 app.use(express.json());
 
-const getSolicitud = (request, response) => {
-  pool.query("SELECT * FROM solicitudnom", (error, results) => {
+//PUNTO 3 INSERTAR LOS DATOS DE LA SOLICITUD NOMINA
+const addSolicitudN = (request, response) => {
+  const { fechaPago, salarioPagar} = request.body;
+
+  pool.query(
+    "INSERT INTO solicitudnom (fechaPago, salarioPagar) VALUES ($1, $2)",
+    [fechaPago, salarioPagar],
+    (error) => {
+      if (error) {
+        throw error;
+      }
+      response
+        .status(201)
+        .json({ status: "success", message: "Solicitud Revisada." });
+    }
+  );
+};
+
+//PUNTO 3 RECIBIR LOS DATOS DE LA SOLICITUD NOMINA
+const getNomina = (request, response) => {
+  pool.query("SELECT N.idNomina, S.fechaPago, N.horasExtra, N.salarioBase, N.sueldoTotal, S.salarioPagar FROM nomina AS N LEFT JOIN solicitudnom AS S ON N.idNomina = S.idNomina", (error, results) => {
     if (error) {
       throw error;
     }
@@ -26,6 +45,7 @@ const getSolicitud = (request, response) => {
   });
 };
 
+//PUNTO 4 INSERTAR LOS DATOS DE LA AUTORIZACION FINANZAS
 const addRevision = (request, response) => {
   const { fechaRevision, estadoRevision, idsolicitudn } = request.body;
 
@@ -42,6 +62,19 @@ const addRevision = (request, response) => {
     }
   );
 };
+
+
+//PUNTO 4 RECIBIR LOS DATOS DE LA AUTORIZACION FINANZAS
+const getSolicitud = (request, response) => {
+  pool.query("SELECT * FROM solicitudnom", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+
 
 app
   .route("/Solicitud")
