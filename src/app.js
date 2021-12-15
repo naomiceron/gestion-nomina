@@ -10,9 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   //?
-  cors({
-    origin: "*",
-  })
+  cors()
 );
 
 app.use(morgan("dev")); //?
