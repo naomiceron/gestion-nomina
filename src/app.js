@@ -27,11 +27,11 @@ const getSolicitud = (request, response) => {
 };
 
 const addRevision = (request, response) => {
-  const { fechaRevision, estadoRevision } = request.body;
+  const { fechaRevision, estadoRevision, idsolicitudn } = request.body;
 
   pool.query(
-    "INSERT INTO solicitudnom (fechaRevision, estadoRevision) VALUES ($1, $2)",
-    [fechaRevision, estadoRevision],
+    "UPDATE solicitudnom SET fechaRevision = $1, estadoRevision= $2 WHERE idsolicitudn = $3",
+    [fechaRevision, estadoRevision, idsolicitudn],
     (error) => {
       if (error) {
         throw error;
