@@ -19,11 +19,24 @@ app.use(express.json());
 
 //PUNTO 3 INSERTAR LOS DATOS DE LA SOLICITUD NOMINA
 const addSolicitudN = (request, response) => {
-  const { fechaPago, salarioPagar} = request.body;
+  const { fechaPago, salarioPagar, horasTrabajadas, horasExtra, comisiones, salarioBase, aguinaldo, sat, imss, fVivienda, fRetiro, sueldoTotal, fechaTransaccion, transaccion, idEmpleados} = request.body;
 
   pool.query(
     "INSERT INTO solicitudnom (fechaPago, salarioPagar) VALUES ($1, $2)",
     [fechaPago, salarioPagar],
+    (error) => {
+      if (error) {
+        throw error;
+      }
+      response
+        .status(201)
+        .json({ status: "success", message: "Solicitud Guardada." });
+    }
+  );
+  
+  pool.query(
+    "INSERT INTO nomina (horasTrabajadas, horasExtra, comisiones, salarioBase, aguinaldo, sat, imss, fVivienda, fRetiro, sueldoTotal, fechaTransaccion, transaccion, idEmpleados) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)",
+    [horasTrabajadas, horasExtra, comisiones, salarioBase, aguinaldo, sat, imss, fVivienda, fRetiro, sueldoTotal, fechaTransaccion, transaccion, idEmpleados],
     (error) => {
       if (error) {
         throw error;
