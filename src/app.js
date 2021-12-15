@@ -83,6 +83,13 @@ app
   // POST endpoint
   .post(addRevision);
 
+app
+  .route("/Nomina")
+  //GET endpoint
+  .get(getNomina)
+  //POST endpoint
+  .post(addSolicitudN);
+
 // Start server
 app.listen(process.env.PORT || 3002, () => {
   console.log(`Server listening`);
