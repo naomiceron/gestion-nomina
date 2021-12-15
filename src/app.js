@@ -19,7 +19,7 @@ app.use(morgan("dev")); //?
 app.use(express.json());
 
 const getSolicitud = (request, response) => {
-  pool.query("SELECT * FROM SOLICITUDNOM", (error, results) => {
+  pool.query("SELECT * FROM solicitudnom", (error, results) => {
     if (error) {
       throw error;
     }
@@ -31,7 +31,7 @@ const addRevision = (request, response) => {
   const { fechaRevision, estadoRevision } = request.body;
 
   pool.query(
-    "INSERT INTO SOLICITUDNOM (fechaRevision, estadoRevision) VALUES ($1, $2)",
+    "INSERT INTO solicitudnom (fechaRevision, estadoRevision) VALUES ($1, $2)",
     [fechaRevision, estadoRevision],
     (error) => {
       if (error) {
