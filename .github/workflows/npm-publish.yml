@@ -5,16 +5,21 @@ name: Node.js Package
 
 on:
   push:
-    branches: [deployment]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [17.x]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
       - run: npm ci
       - run: npm run build --if-present
       - uses: akhileshns/heroku-deploy@v3.12.12
@@ -22,4 +27,5 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "deerland-empleados-api"
           heroku_email: "naomiceronblanco@gmail.com"
-
+        env:
+          DATABASE_URL: ${{secrets.DATABASE_URL}}

@@ -9,8 +9,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
-  //?
-  cors()
+  cors({
+    origin: "*",
+  })
 );
 
 app.use(morgan("dev")); //?
@@ -57,6 +58,7 @@ app.listen(process.env.PORT || 3002, () => {
 app.get("/health", (req, res) => {
   res.json("Successful deployment");
 });
+
 app.get("/db", async (req, res) => {
   try {
     const client = await pool.connect();
@@ -69,4 +71,5 @@ app.get("/db", async (req, res) => {
     res.send("Error " + err);
   }
 });
+
 module.exports = app;
