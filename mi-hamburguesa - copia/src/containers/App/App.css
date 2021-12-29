@@ -1,0 +1,116 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  background-color: beige;
+}
+
+.burger {
+  width: 30%;
+  list-style: none;
+  margin: 0 auto;
+}
+
+.burger li {
+  margin: 2px;
+}
+
+.burger .bun.top {
+  background-image: linear-gradient(#9e6832,#dd8c3c) ;
+  border-radius: 80px 80px 4px 4px;
+  height: 90px;
+}
+
+.burger .bun.bottom {
+  background-image: linear-gradient(#dd8c3c, #c5813d) ;
+  border-radius: 4px 4px 10px 10px;
+  height: 30px;
+}
+
+.burger .patty {
+  background-image: linear-gradient(#461e1e, #692929, #461e1e) ;
+  border-radius: 10px;
+  height: 30px;
+}
+
+.burger .cheese {
+  background-color: #f5ed0e;
+  border-radius: 1px;
+  height: 6px;
+}
+
+.burger .ketchup {
+  background-color: #FF0000;
+  border-radius: 1px;
+  height: 2px;
+}
+
+.burger .lettuce {
+  background-color: #19a217;
+  border-radius: 10px;
+  height: 10px;
+}
+
+button.ingredient {
+  margin: 5px;
+  text-align: left;
+}
+
+button.ingredient svg{
+  margin-right: 10px;
+}
+
+h2 {
+  text-align: left;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 100px;
+}
+
+.MuiCard-root {
+  min-height: 350px;
+}
+
+.ingredients-list ul {
+  list-style: none;
+  text-align: left;
+  font-size: 25px;
+  min-height: 275px;
+}
