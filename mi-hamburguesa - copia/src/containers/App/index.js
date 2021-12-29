@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import Header from '../../components/Header';
+import ButtonAppBar from '../../components/Menu';
 import CostViewer from '../../components/CostViewer';
 import IngredientsList from '../../components/IngredientsList';
 import HamburguerView from '../../components/HamburguerView';
@@ -29,7 +30,7 @@ class App extends React.Component {
     const {addIngredient, ingredients} = this.props;
     return (
       <Container className="App">
-        <Header title = 'Mi Hamburguesa'/>
+        <ButtonAppBar/>
         <Grid container spacing= {2}>
           <Grid item sm={ 12 } md={ 6 } className='ingredients-form'>
               <Card raised>
