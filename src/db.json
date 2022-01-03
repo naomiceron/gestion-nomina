@@ -1,0 +1,16 @@
+{
+    "usuarios":[
+        {
+            "id": 1,
+            "nombre": "Naomi Ceron",
+            "correo": "naomi@gmail.com",
+            "contraseña": "202cb962ac59075b964b07152d234b70"
+        },
+        {
+            "id": 2,
+            "nombre": "Andrea Zayas",
+            "correo": "andrea@gmail.com",
+            "contraseña": "81dc9bdb52d04dc20036dbd8313ed055"
+        }
+    ]
+}
