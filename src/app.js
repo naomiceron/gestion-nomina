@@ -17,10 +17,9 @@ app.use(
 app.use(morgan("dev")); //?
 app.use(express.json());
 
-//PUNTO 3 INSERTAR LOS DATOS DE LA SOLICITUD NOMINA
+//Solicitud insertar solicitud nomina
 const addSolicitudN = (request, response) => {
-  const { fechaPago, salarioPagar} = request.body;
-
+  const { fechaPago, salarioPagar } = request.body;
   pool.query(
     "INSERT INTO solicitudnom (fechaPago, salarioPagar) VALUES ($1, $2)",
     [fechaPago, salarioPagar],
@@ -33,23 +32,18 @@ const addSolicitudN = (request, response) => {
         .json({ status: "success", message: "Solicitud Guardada." });
     }
   );
-  
-};
-
-//PUNTO 3 RECIBIR LOS DATOS DE LA SOLICITUD NOMINA
-const getNomina = (request, response) => {
-  pool.query("SELECT N.idNomina, S.fechaPago, N.horasExtra, N.salarioBase, N.sueldoTotal, S.salarioPagar, S.idsolicitudn FROM nomina AS N LEFT JOIN solicitudnom AS S ON N.idNomina = S.idNomina", (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
 };
 
 //ESTE ES EL ENDPOINT PARA GUARDAR EN BD --> el bueno
 const addRevision = (request, response) => {
-  const { ID_Solicitud_N, ID_A, Total_Horas_T, Fecha, ES_Solicitud_N, NumNomina } = request.body;
-
+  const {
+    ID_Solicitud_N,
+    ID_A,
+    Total_Horas_T,
+    Fecha,
+    ES_Solicitud_N,
+    NumNomina,
+  } = request.body;
   pool.query(
     "UPDATE solicitudnom SET ID_Solicitud_N = $1,  ID_A= $2, Total_Horas_T= $3, Fecha= $4, ES_Solicitud_N= $5  WHERE NumNomina = $6",
     [ID_Solicitud_N, ID_A, Total_Horas_T, Fecha, ES_Solicitud_N, NumNomina],
@@ -57,13 +51,10 @@ const addRevision = (request, response) => {
       if (error) {
         throw error;
       }
-      response
-        .status(201)
-        .json({ status: "success", message: "Exito." });
+      response.status(201).json({ status: "success", message: "Exito." });
     }
   );
 };
-
 
 //PUNTO 4 RECIBIR LOS DATOS DE LA AUTORIZACION FINANZAS
 const getSolicitud = (request, response) => {
@@ -75,7 +66,36 @@ const getSolicitud = (request, response) => {
   });
 };
 
+//Solicitud get nomina
+const getNomina = (request, response) => {
+  pool.query(
+    "SELECT N.idNomina, S.fechaPago, N.horasExtra, N.salarioBase, N.sueldoTotal, S.salarioPagar, S.idsolicitudn FROM nomina AS N LEFT JOIN solicitudnom AS S ON N.idNomina = S.idNomina",
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).json(results.rows);
+    }
+  );
+};
 
+//solicitud insertar horas
+const addHoras = (request, response) => {
+  const { idempleados, horasextra, horastrabajadas } = request.body;
+  pool.query(
+    "INSERT INTO nomina (idempleados, horasextra, horastrabajadas) VALUES ($1, $2, $3)",
+    [idempleados, horasextra, horastrabajadas],
+    (error) => {
+      if (error) {
+        throw error;
+      }
+      response
+        .status(201)
+        .json({ status: "success", message: "Horas Guardadas." });
+    }
+  );
+};
+//solicitud traer empleados
 const getEmpleados = (request, response) => {
   pool.query("SELECT * FROM empleados", (error, results) => {
     if (error) {
@@ -85,6 +105,7 @@ const getEmpleados = (request, response) => {
   });
 };
 
+//Solicitud traer usuarios
 const getUsuarios = (request, response) => {
   pool.query("SELECT * FROM usuarios", (error, results) => {
     if (error) {
@@ -106,10 +127,12 @@ app
   //GET endpoint
   .get(getNomina)
   //POST endpoint
-  .post(addSolicitudN);
+  .post(addSolicitudN)
+  .post(addHoras);
 
-  app.route("/Empleado").get(getEmpleados);
-  app.route("/Usuarios").get(getUsuarios);
+app.route("/Empleado").get(getEmpleados);
+
+app.route("/Usuarios").get(getUsuarios);
 
 // Start server
 app.listen(process.env.PORT || 3002, () => {
