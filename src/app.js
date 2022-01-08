@@ -18,6 +18,7 @@ app.use(morgan("dev")); //?
 app.use(express.json());
 
 //Solicitud insertar solicitud nomina
+/*
 const addSolicitudN = (request, response) => {
   const { fechaPago, salarioPagar } = request.body;
   pool.query(
@@ -33,7 +34,7 @@ const addSolicitudN = (request, response) => {
     }
   );
 };
-
+*/
 //ESTE ES EL ENDPOINT PARA GUARDAR EN BD --> el bueno
 const addRevision = (request, response) => {
   const {
@@ -141,7 +142,7 @@ app
   //GET endpoint
   .get(getNomina)
   //POST endpoint
-  .post(addSolicitudN)
+  //.post(addSolicitudN)
   .post(addHoras);
 
 app.route("/Empleado").get(getEmpleados);
