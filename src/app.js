@@ -46,20 +46,20 @@ const getNomina = (request, response) => {
   });
 };
 
-//PUNTO 4 INSERTAR LOS DATOS DE LA AUTORIZACION FINANZAS
+//ESTE ES EL ENDPOINT PARA GUARDAR EN BD
 const addRevision = (request, response) => {
-  const { fechaRevision, estadoRevision, idsolicitudn } = request.body;
+  const { ID_Solicitud_N, ID_A, Total_Horas_T, Fecha, ES_Solicitud_N, NumNomina } = request.body;
 
   pool.query(
-    "UPDATE solicitudnom SET fechaRevision = $1, estadoRevision= $2 WHERE idsolicitudn = $3",
-    [fechaRevision, estadoRevision, idsolicitudn],
+    "UPDATE solicitudnom SET ID_Solicitud_N = $1,  ID_A= $2, Total_Horas_T= $3, Fecha= $4, ES_Solicitud_N= $5  WHERE NumNomina = $6",
+    [ID_Solicitud_N, ID_A, Total_Horas_T, Fecha, ES_Solicitud_N, NumNomina],
     (error) => {
       if (error) {
         throw error;
       }
       response
         .status(201)
-        .json({ status: "success", message: "Solicitud Revisada." });
+        .json({ status: "success", message: "Exito." });
     }
   );
 };
