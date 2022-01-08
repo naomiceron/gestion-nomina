@@ -46,7 +46,7 @@ const getNomina = (request, response) => {
   });
 };
 
-//ESTE ES EL ENDPOINT PARA GUARDAR EN BD
+//ESTE ES EL ENDPOINT PARA GUARDAR EN BD --> el bueno
 const addRevision = (request, response) => {
   const { ID_Solicitud_N, ID_A, Total_Horas_T, Fecha, ES_Solicitud_N, NumNomina } = request.body;
 
@@ -76,6 +76,15 @@ const getSolicitud = (request, response) => {
 };
 
 
+const getEmpleados = (request, response) => {
+  pool.query("SELECT * FROM empleados", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 
 app
   .route("/Solicitud")
@@ -90,6 +99,8 @@ app
   .get(getNomina)
   //POST endpoint
   .post(addSolicitudN);
+
+  app.route("/Empleado").get(getEmpleados)
 
 // Start server
 app.listen(process.env.PORT || 3002, () => {
