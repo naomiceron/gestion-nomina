@@ -66,7 +66,8 @@ const getSolicitud = (request, response) => {
   });
 };
 
-//Solicitud get nomina
+//Solicitud get nomina antiguo
+/*
 const getNomina = (request, response) => {
   pool.query(
     "SELECT N.idNomina, S.fechaPago, N.horasExtra, N.salarioBase, N.sueldoTotal, S.salarioPagar, S.idsolicitudn FROM nomina AS N LEFT JOIN solicitudnom AS S ON N.idNomina = S.idNomina",
@@ -78,7 +79,20 @@ const getNomina = (request, response) => {
     }
   );
 };
+*/
 
+//solicitud get nomina
+const getNomina = (request, response) => {
+  pool.query(
+    "SELECT * FROM nomina",
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).json(results.rows);
+    }
+  );
+};
 //solicitud insertar horas
 const addHoras = (request, response) => {
   const { idempleados, horasextra, horastrabajadas } = request.body;
