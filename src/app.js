@@ -85,6 +85,14 @@ const getEmpleados = (request, response) => {
   });
 };
 
+const getUsuarios = (request, response) => {
+  pool.query("SELECT * FROM usuarios", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
 
 app
   .route("/Solicitud")
@@ -100,7 +108,8 @@ app
   //POST endpoint
   .post(addSolicitudN);
 
-  app.route("/Empleado").get(getEmpleados)
+  app.route("/Empleado").get(getEmpleados);
+  app.route("/Usuarios").get(getUsuarios);
 
 // Start server
 app.listen(process.env.PORT || 3002, () => {

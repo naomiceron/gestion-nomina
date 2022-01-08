@@ -10,7 +10,7 @@
     "dev": "nodemon -r dotenv/config src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "nodemon app.js",
-    "start": "json-server --watch src/db.json"
+    "start": "json-server --watch https://deerland-empleados.herokuapp.com/Usuarios"
   },
   "author": "",
   "license": "ISC",
