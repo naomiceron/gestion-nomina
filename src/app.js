@@ -96,6 +96,36 @@ const getNomina = (request, response) => {
   );
 };
 
+//solicitud update nomina --> este es el que modificarías si es necesario michelle
+const addNomina = (request, response) => {
+  const {
+    idnomina,
+    horastrabajadas,
+    horasextra,
+    comisiones,
+    salariobase,
+    aguinaldo,
+    sat,
+    imss,
+    fvivienda,
+    fretiro,
+    sueldototal,
+    fechatransaccion,
+    transaccion,
+    idempleados,
+  } = request.body;
+  pool.query(
+    "UPDATE nomina SET idnomina = $1,  horastrabajadas= $2, horasextra= $3, comisiones= $4, salariobase= $5, aguinaldo=$6, sat=$7, imss=$8, fvivienda=$9, fretiro=$10, sueldototal=$11, fechatransaccion=$11, transaccion=$12 WHERE idempleados = $13",
+    [idnomina, horastrabajadas, horasextra, comisiones, salariobase, aguinaldo, sat, imss, fvivienda, fretiro, sueldototal, fechatransaccion, transaccion, idempleados],
+    (error) => {
+      if (error) {
+        throw error;
+      }
+      response.status(201).json({ status: "success", message: "Exito." });
+    }
+  );
+};
+
 //solicitud insertar horas
 const addHoras = (request, response) => {
   const { idempleados, horasextra, horastrabajadas } = request.body;
@@ -145,7 +175,7 @@ app
   //GET endpoint
   .get(getNomina)
   //POST endpoint
-  //.post(addNomina);
+  .post(addNomina);
 
 app
   .route("/Horas")
