@@ -115,7 +115,7 @@ const addNomina = (request, response) => {
     idempleados,
   } = request.body;
   pool.query(
-    "UPDATE nomina SET idempleados = $1,  horastrabajadas= $2, horasextra= $3, comisiones= $4, salariobase= $5, aguinaldo=$6, sat=$7, imss=$8, fvivienda=$9, fretiro=$10, sueldototal=$11, fechatransaccion=$11, transaccion=$12 WHERE idnomina = $13",
+    "UPDATE nomina SET idempleados = $1,  horastrabajadas= $2, horasextra= $3, comisiones= $4, salariobase= $5, aguinaldo=$6, sat=$7, imss=$8, fvivienda=$9, fretiro=$10, sueldototal=$11, fechatransaccion=$12, transaccion=$13 WHERE idnomina = $14",
     [idempleados, horastrabajadas, horasextra, comisiones, salariobase, aguinaldo, sat, imss, fvivienda, fretiro, sueldototal, fechatransaccion, transaccion, idnomina],
     (error) => {
       if (error) {
