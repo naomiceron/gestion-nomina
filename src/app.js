@@ -60,7 +60,7 @@ const addRevision = (request, response) => {
 
 //Solicitud select solicitudnom
 const getSolicitud = (request, response) => {
-  pool.query("SELECT * FROM solicitudnom", (error, results) => {
+  pool.query("SELECT * FROM nomina JOIN empleados ON nomina.idempleados = empleados.idempleados JOIN solicitudnom ON nomina.idnomina = solicitudnom.numnomina", (error, results) => {
     if (error) {
       throw error;
     }
