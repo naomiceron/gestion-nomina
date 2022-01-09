@@ -35,6 +35,7 @@ const addSolicitudN = (request, response) => {
   );
 };
 */
+
 //ESTE ES EL ENDPOINT PARA GUARDAR EN BD --> el bueno
 const addRevision = (request, response) => {
   const {
@@ -57,7 +58,7 @@ const addRevision = (request, response) => {
   );
 };
 
-//PUNTO 4 RECIBIR LOS DATOS DE LA AUTORIZACION FINANZAS
+//Solicitud select solicitudnom
 const getSolicitud = (request, response) => {
   pool.query("SELECT * FROM solicitudnom", (error, results) => {
     if (error) {
@@ -94,6 +95,7 @@ const getNomina = (request, response) => {
     }
   );
 };
+
 //solicitud insertar horas
 const addHoras = (request, response) => {
   const { idempleados, horasextra, horastrabajadas } = request.body;
@@ -110,6 +112,7 @@ const addHoras = (request, response) => {
     }
   );
 };
+
 //solicitud traer empleados
 const getEmpleados = (request, response) => {
   pool.query("SELECT * FROM empleados", (error, results) => {
@@ -142,7 +145,10 @@ app
   //GET endpoint
   .get(getNomina)
   //POST endpoint
-  //.post(addSolicitudN)
+  //.post(addNomina);
+
+app
+  .route("/Horas")
   .post(addHoras);
 
 app.route("/Empleado").get(getEmpleados);
