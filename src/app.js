@@ -85,7 +85,7 @@ const getNomina = (request, response) => {
 //solicitud get nomina
 const getNomina = (request, response) => {
   pool.query(
-    "SELECT * FROM nomina",
+    "SELECT * FROM nomina JOIN empleados ON nomina.idempleados = empleados.idempleados",
     (error, results) => {
       if (error) {
         throw error;
