@@ -67,6 +67,15 @@ const getSolicitud = (request, response) => {
     response.status(200).json(results.rows);
   });
 };
+//Solicitud select solicitudnom aprobada
+const getSolicitudAP = (request, response) => {
+  pool.query("SELECT * FROM nomina JOIN empleados ON nomina.idempleados = empleados.idempleados JOIN solicitudnom ON nomina.idnomina = solicitudnom.numnomina WHERE es_solicitud_n = 'Aprobado'", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
 
 //Solicitud get nomina antiguo
 /*
@@ -184,6 +193,7 @@ app
 app.route("/Empleado").get(getEmpleados);
 
 app.route("/Usuarios").get(getUsuarios);
+app.route("/Aprobados").get(getSolicitudAP);
 
 // Start server
 app.listen(process.env.PORT || 3002, () => {
