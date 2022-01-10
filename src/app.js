@@ -81,13 +81,11 @@ const getNomina = (request, response) => {
   );
 };
 
-//solicitud update nomina --> este es el que modificarías si es necesario michelle
 const addNomina = (request, response) => {
   const {
     idnomina,
     comisiones,
     salariobase,
-    aguinaldo,
     sat,
     imss,
     fvivienda,
@@ -96,8 +94,8 @@ const addNomina = (request, response) => {
     idempleados,
   } = request.body;
   pool.query(
-    "UPDATE nomina SET idempleados = $1,  comisiones= $2, salariobase= $3, aguinaldo=$4, sat=$5, imss=$6, fvivienda=$7, fretiro=$8, sueldototal=$9 WHERE idnomina = $10",
-    [idempleados, comisiones, salariobase, aguinaldo, sat, imss, fvivienda, fretiro, sueldototal, idnomina],
+    "UPDATE nomina SET comisiones= $1, salariobase= $2, sat=$3, imss=$4, fvivienda=$5, fretiro=$6, sueldototal=$7 WHERE idnomina = $8",
+    [comisiones, salariobase, sat, imss, fvivienda, fretiro, sueldototal, idnomina],
     (error) => {
       if (error) {
         throw error;
