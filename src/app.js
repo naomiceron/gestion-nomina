@@ -18,12 +18,12 @@ app.use(morgan("dev")); //?
 app.use(express.json());
 
 //Solicitud insertar solicitud nomina
-/*
+
 const addSolicitudN = (request, response) => {
-  const { fechaPago, salarioPagar } = request.body;
+  const { NumNomina } = request.body;
   pool.query(
-    "INSERT INTO solicitudnom (fechaPago, salarioPagar) VALUES ($1, $2)",
-    [fechaPago, salarioPagar],
+    "INSERT INTO solicitudnom (numnomina) VALUES ($1)",
+    [NumNomina],
     (error) => {
       if (error) {
         throw error;
@@ -34,7 +34,7 @@ const addSolicitudN = (request, response) => {
     }
   );
 };
-*/
+
 
 //ESTE ES EL ENDPOINT PARA GUARDAR EN BD --> el bueno
 const addRevision = (request, response) => {
@@ -67,30 +67,6 @@ const getSolicitud = (request, response) => {
     response.status(200).json(results.rows);
   });
 };
-//Solicitud select solicitudnom aprobada
-const getSolicitudAP = (request, response) => {
-  pool.query("SELECT * FROM nomina JOIN empleados ON nomina.idempleados = empleados.idempleados JOIN solicitudnom ON nomina.idnomina = solicitudnom.numnomina WHERE es_solicitud_n = 'Aprobado'", (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
-};
-
-//Solicitud get nomina antiguo
-/*
-const getNomina = (request, response) => {
-  pool.query(
-    "SELECT N.idNomina, S.fechaPago, N.horasExtra, N.salarioBase, N.sueldoTotal, S.salarioPagar, S.idsolicitudn FROM nomina AS N LEFT JOIN solicitudnom AS S ON N.idNomina = S.idNomina",
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      response.status(200).json(results.rows);
-    }
-  );
-};
-*/
 
 //solicitud get nomina
 const getNomina = (request, response) => {
@@ -109,8 +85,6 @@ const getNomina = (request, response) => {
 const addNomina = (request, response) => {
   const {
     idnomina,
-    horastrabajadas,
-    horasextra,
     comisiones,
     salariobase,
     aguinaldo,
@@ -119,13 +93,11 @@ const addNomina = (request, response) => {
     fvivienda,
     fretiro,
     sueldototal,
-    fechatransaccion,
-    transaccion,
     idempleados,
   } = request.body;
   pool.query(
-    "UPDATE nomina SET idempleados = $1,  horastrabajadas= $2, horasextra= $3, comisiones= $4, salariobase= $5, aguinaldo=$6, sat=$7, imss=$8, fvivienda=$9, fretiro=$10, sueldototal=$11, fechatransaccion=$12, transaccion=$13 WHERE idnomina = $14",
-    [idempleados, horastrabajadas, horasextra, comisiones, salariobase, aguinaldo, sat, imss, fvivienda, fretiro, sueldototal, fechatransaccion, transaccion, idnomina],
+    "UPDATE nomina SET idempleados = $1,  comisiones= $2, salariobase= $3, aguinaldo=$4, sat=$5, imss=$6, fvivienda=$7, fretiro=$8, sueldototal=$9 WHERE idnomina = $10",
+    [idempleados, comisiones, salariobase, aguinaldo, sat, imss, fvivienda, fretiro, sueldototal, idnomina],
     (error) => {
       if (error) {
         throw error;
@@ -193,7 +165,7 @@ app
 app.route("/Empleado").get(getEmpleados);
 
 app.route("/Usuarios").get(getUsuarios);
-app.route("/Aprobados").get(getSolicitudAP);
+app.route("/AddSol").post(addSolicitudN);
 
 // Start server
 app.listen(process.env.PORT || 3002, () => {
